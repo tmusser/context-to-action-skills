@@ -113,3 +113,65 @@ Remaining risks:
 Next safest task:
 
 - Leave the six skill files unchanged unless a later prompt-quality pass shows a real need for default output shape tweaks.
+
+## 2026-06-10 Discoverability Polish
+
+Task: improve GitHub discoverability and clean up public links
+
+Result: pass
+
+GitHub repo topics:
+
+- `claude`
+- `claude-skills`
+- `ai-skills`
+- `business-skills`
+- `cowork`
+- `meeting-notes`
+- `decision-making`
+- `business-operations`
+- `ai-productivity`
+- `knowledge-work`
+- `status-updates`
+- `workflow-automation`
+
+Commands run:
+
+1. `gh repo edit tmusser/ai-business-skills --add-topic ...`
+   Result: pass
+   Evidence: live repo topics were updated on GitHub.
+
+2. `git diff --check`
+   Result: pass
+   Evidence: no whitespace or patch-format issues in the working tree.
+
+3. Local filesystem path scan
+   Result: pass
+   Evidence: no remaining local filesystem links.
+
+4. File-scheme scan
+   Result: pass
+   Evidence: no file-scheme links remain.
+
+5. `gh repo view tmusser/ai-business-skills --json visibility,url,repositoryTopics`
+   Result: pass
+   Evidence: repo is public and topics match the requested discoverability set.
+
+6. `python3 - <<'PY' ... PY`
+   Result: pass
+   Evidence: README relative links resolve and only the intended files changed.
+
+Changed files:
+
+- [`README.md`](../README.md)
+- [`docs/BUILD_LOG.md`](./BUILD_LOG.md)
+- [`docs/HANDOFF.md`](./HANDOFF.md)
+- [`docs/VERIFY.md`](./VERIFY.md)
+
+Remaining risks:
+
+- Topic ordering may appear differently in GitHub UI, but the set is correct.
+
+Next safest task:
+
+- Keep the repo lean unless future feedback shows a real need for another discoverability cue.

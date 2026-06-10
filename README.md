@@ -4,6 +4,8 @@ Claude skills for turning messy business context into clear asks, decisions, own
 
 `ai-business-skills` is a Cowork-first companion to `ai-engineering-skills`. It works with pasted context and with connected tools when available, while keeping the user-facing experience focused on outcomes instead of connector mechanics.
 
+If you are new here, start with `brief-me` and the morning brief example.
+
 ## Use It When...
 
 - Before a meeting and you need a fast catch-up
@@ -45,6 +47,8 @@ clear-ask -> follow-up-draft
 ## Supported Context
 
 Use pasted notes, Zoom transcripts, Slack, Gmail, Calendar, Atlassian, and Hex or other data outputs as inputs.
+
+By default, these skills read and draft. They do not send messages, create events, update tickets, or publish outputs unless you explicitly ask.
 
 Shared guidance for mixed-source inputs lives in [source-packet.md](./references/source-packet.md).
 
