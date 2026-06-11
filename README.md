@@ -35,17 +35,56 @@ This repo is for the work before the work:
 
 This is not a deck generator, project-management framework, or heavy artifact factory.
 
-## Product Model
+## How the model works
 
-```text
-messy conversation -> conversation state -> context-aware response
+The model is messy conversation -> conversation state -> context-aware response.
+
+```mermaid
+%%{init: {"theme": "base", "themeVariables": {"fontFamily": "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif", "primaryColor": "#F8FAFC", "primaryTextColor": "#0F172A", "primaryBorderColor": "#CBD5E1", "lineColor": "#64748B", "secondaryColor": "#EEF6FF", "tertiaryColor": "#FFF7ED"}}}%%
+flowchart LR
+  subgraph messy["Messy workplace conversation"]
+    slack["Slack thread"]
+    email["Email chain"]
+    meeting["Meeting transcript"]
+    doc["Doc comments"]
+    ticket["Jira / Confluence discussion"]
+  end
+
+  subgraph state["Conversation state"]
+    context["Context packet<br/><span style='font-size:12px'>what was said, by whom, from where, and what matters</span>"]
+    action["Action state<br/><span style='font-size:12px'>decisions, owners, deadlines, blockers, open questions</span>"]
+    confidence["Source confidence<br/><span style='font-size:12px'>facts, assumptions, source gaps, stakeholder sensitivities</span>"]
+  end
+
+  subgraph response["Context-aware response"]
+    reply["Reply draft"]
+    followup["Follow-up"]
+    update["Status update"]
+    decision["Decision snapshot"]
+  end
+
+  slack --> context
+  email --> context
+  meeting --> context
+  doc --> context
+  ticket --> context
+
+  context --> action
+  action --> confidence
+
+  confidence --> reply
+  confidence --> followup
+  confidence --> update
+  confidence --> decision
+
+  classDef input fill:#F8FAFC,stroke:#CBD5E1,color:#0F172A,stroke-width:1px;
+  classDef core fill:#EEF6FF,stroke:#60A5FA,color:#0F172A,stroke-width:1.5px;
+  classDef output fill:#FFF7ED,stroke:#FDBA74,color:#0F172A,stroke-width:1px;
+
+  class slack,email,meeting,doc,ticket input;
+  class context,action,confidence core;
+  class reply,followup,update,decision output;
 ```
-
-| Primitive | Meaning |
-| --- | --- |
-| Context packet | What was said, by whom, from where, and what matters |
-| Action state | Decisions, owners, deadlines, blockers, and open questions |
-| Response draft | The next message, written with the right context and tone |
 
 ## Workflows
 
