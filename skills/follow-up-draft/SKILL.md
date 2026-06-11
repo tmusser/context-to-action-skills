@@ -7,7 +7,7 @@ description: Draft concise Slack or email follow-ups from context, notes, action
 
 ## Purpose
 
-Draft a concise follow-up that makes the ask, owner, timing, and next step easy to understand.
+Draft a concise follow-up that preserves the ask, owner, timing, context, and next step.
 
 ## Use For
 
@@ -32,11 +32,27 @@ Draft a concise follow-up that makes the ask, owner, timing, and next step easy 
 - Label assumptions or missing details.
 - Keep the message concise and business-user friendly.
 
+## Shared Output Expectations
+
+When context is messy or multi-source, include only the useful subset of:
+
+- Source-backed facts
+- Assumptions
+- Source gaps
+- Stakeholder sensitivities
+- Potential misread
+- Suggested next response or next action
+
+Do not include every field mechanically. Use the smallest useful output.
+
 ## Output
 
 - Direct version
 - Warm version
 - Executive concise version
+- Context note, when helpful
+
+If the user wants a fuller record before drafting, map the source state into [CONVERSATION_STATE.md](../../templates/CONVERSATION_STATE.md).
 
 ## Success Standard
 

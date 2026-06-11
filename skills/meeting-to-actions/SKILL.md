@@ -13,6 +13,10 @@ Turn meeting content into a compact action record without making the user reread
 
 - Zoom transcripts
 - Meeting notes
+- Slack threads
+- Email chains
+- Doc comment threads
+- Ticket discussions
 - Post-meeting cleanup
 - Preparing follow-up messages or ticket updates
 
@@ -32,6 +36,19 @@ Turn meeting content into a compact action record without making the user reread
 - Surface missing owners, due dates, and unclear blockers.
 - Do not dump raw transcript content by default.
 
+## Shared Output Expectations
+
+When context is messy or multi-source, include only the useful subset of:
+
+- Source-backed facts
+- Assumptions
+- Source gaps
+- Stakeholder sensitivities
+- Potential misread
+- Suggested next response or next action
+
+Do not include every field mechanically. Use the smallest useful output.
+
 ## Output
 
 - Decisions made
@@ -41,6 +58,8 @@ Turn meeting content into a compact action record without making the user reread
 - Follow-up drafts
 - Tickets/docs to update if applicable
 - Source gaps
+
+If the user wants a reusable record, map the result into [CONVERSATION_STATE.md](../../templates/CONVERSATION_STATE.md).
 
 ## Success Standard
 

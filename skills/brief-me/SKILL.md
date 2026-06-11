@@ -7,7 +7,7 @@ description: Catch the user up from messy business context and surface what need
 
 ## Purpose
 
-Turn messy connected or pasted context into a short business briefing the user can act on quickly.
+Turn messy connected or pasted context into a short conversation-state brief the user can act on quickly.
 
 ## Use For
 
@@ -37,17 +37,32 @@ Turn messy connected or pasted context into a short business briefing the user c
 - Do not dump raw transcript content by default.
 - Keep the output business-user friendly.
 
+## Shared Output Expectations
+
+When context is messy or multi-source, include only the useful subset of:
+
+- Source-backed facts
+- Assumptions
+- Source gaps
+- Stakeholder sensitivities
+- Potential misread
+- Suggested next response or next action
+
+Do not include every field mechanically. Use the smallest useful output.
+
 ## Output
 
-- Situation
+- Conversation state
 - What changed
-- Decisions needed
-- Open actions
-- Owners / due dates
-- Risks or blockers
+- What needs response
+- Action state
+- Source confidence
+- Suggested next response
 - Meetings to prep for
 - Suggested follow-ups
 - Source gaps
+
+When the user wants a fuller record, map the result into [CONVERSATION_STATE.md](../../templates/CONVERSATION_STATE.md).
 
 ## Success Standard
 

@@ -7,7 +7,7 @@ description: Create concise status updates for teams, managers, executives, cust
 
 ## Purpose
 
-Create a concise update from messy business context without losing the ask, risk, or next milestone.
+Create a concise update from messy conversation state without losing the ask, risk, or next milestone.
 
 ## Modes
 
@@ -33,12 +33,27 @@ Create a concise update from messy business context without losing the ask, risk
 - Label assumptions and source gaps.
 - Keep the output short enough to send quickly.
 
+## Shared Output Expectations
+
+When context is messy or multi-source, include only the useful subset of:
+
+- Source-backed facts
+- Assumptions
+- Source gaps
+- Stakeholder sensitivities
+- Potential misread
+- Suggested next response or next action
+
+Do not include every field mechanically. Use the smallest useful output.
+
 ## Output
 
+- Conversation state
 - Status
 - What changed
 - Progress
 - Risks / blockers
+- Stakeholder sensitivities
 - Asks
 - Next milestone
 - Suggested audience-specific version
