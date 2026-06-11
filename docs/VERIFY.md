@@ -208,3 +208,52 @@ Remaining risks:
 Next safest task:
 
 - Keep the example set stable unless a future pass needs to show another common conversation shape.
+
+## 2026-06-11 V0.2 Verification
+
+Task: document v0.2 verification
+
+Result: pass
+
+Commands run:
+
+1. `find . -type f | sort`
+   Result: pass
+   Evidence: the repo contains the expected files, including `templates/CONVERSATION_STATE.md` and the six visible skills.
+
+2. `python3 - <<'PY' ... PY`
+   Result: pass
+   Checks:
+   - exactly six skills exist
+   - each skill name matches its folder
+   - each skill preserves `Read before write`
+   - each skill mentions source gaps
+   - each skill mentions assumptions
+   - `templates/CONVERSATION_STATE.md` exists
+   - README mentions conversation state, async meetings, operating modes, and messy conversation
+   - every example has `Messy Input`, `What The Skill Notices`, `Clean Output`, and `Why This Is Better Than A Generic AI Reply`
+
+3. `git status --short`
+   Result: pass
+   Evidence: no unexpected files were present during verification.
+
+Manual checks:
+
+- README explains the repo as work conversation coordination, not generic productivity.
+- The repo still has exactly six visible skills.
+- No skill promises to send, publish, update tickets, or mutate systems without explicit user instruction.
+- `decision-brief` is framed as lightweight decision support, not a polished strategy memo.
+- Examples demonstrate before/after value, not just output shapes.
+- `CONVERSATION_STATE.md` is referenced by the README and at least three skills.
+
+Changed files:
+
+- [`docs/VERIFY.md`](./VERIFY.md)
+
+Remaining risks:
+
+- The verification is structural and content-based, not a live connector test.
+
+Next safest task:
+
+- Keep the V0.2 shape stable unless a future release needs a new example or skill contract.
