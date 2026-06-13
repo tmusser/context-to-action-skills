@@ -23,11 +23,18 @@ Use brief-me. Catch me up on what changed, what needs my response, risks/blocker
 Tiny example:
 
 ```text
-Messy input: "Can someone send thoughts on this Slack thread?"
-What it needs: clean ask
-What it needs: owner, risk, reply
-Clean output: "We need a decision by Friday; owner is missing."
-Reply: "Can we confirm the owner and the Friday decision?"
+Messy input:
+Alex: Can we still send the customer note today?
+Sam: I'd rather not wait; support can catch up after.
+Priya: Support needs the enterprise wording before anything goes out.
+Jordan: Legal hasn't approved the banner copy yet.
+Alex: The send queue closes at 3pm. Who owns the call?
+
+Clean output:
+Clean ask: decide whether to send today or wait for legal/support readiness.
+Decision needed: send today vs. move to tomorrow.
+Owner gap: no final decision owner is named.
+Suggested reply: "Can we name the decision owner and confirm by 3pm whether legal/support readiness blocks today's send?"
 Full version: [examples/messy-thread-to-follow-up.md](examples/messy-thread-to-follow-up.md)
 ```
 
@@ -180,3 +187,7 @@ This repo was built using `ai-engineering-skills` as the control layer.
 - [CREATION_INVOCATIONS.md](docs/CREATION_INVOCATIONS.md)
 - [DESIGN_DECISIONS.md](docs/DESIGN_DECISIONS.md)
 - [VERIFY.md](docs/VERIFY.md)
+
+## Part of the Suite
+
+This repo is one of three proof artifacts in a small suite. See the [suite map](docs/SUITE_MAP.md) for how `ai-engineering-skills`, `ai-business-skills`, and `chart-contract` fit together.
