@@ -32,7 +32,7 @@ Sam: Maybe, but nobody's owned the final call.
 
 ## 1. What changed
 
-- The team is leaning toward sending the customer note tomorrow.
+- The team may be leaning toward tomorrow if legal does not come back in time, but the final call is not explicit.
 - The help center copy and banner still need to match.
 - Support needs a clear heads-up about enterprise accounts.
 - The final call is still not named.
