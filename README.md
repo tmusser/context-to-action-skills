@@ -31,6 +31,8 @@ Reply: "Can we confirm the owner and the Friday decision?"
 Full version: [examples/messy-thread-to-follow-up.md](examples/messy-thread-to-follow-up.md)
 ```
 
+Shareable one-pager: [docs/one-pager.md](docs/one-pager.md)
+
 ## Privacy and control
 
 - pasted-only mode uses only pasted text
