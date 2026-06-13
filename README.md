@@ -24,11 +24,11 @@ Tiny example:
 
 ```text
 Messy input:
-Alex: Can we still send the customer note today?
-Sam: I'd rather not wait; support can catch up after.
-Priya: Support needs the enterprise wording before anything goes out.
-Jordan: Legal hasn't approved the banner copy yet.
-Alex: The send queue closes at 3pm. Who owns the call?
+Alex: "Can we still send the customer note today?"
+Sam: "I'd rather not wait; support can catch up after."
+Priya: "Support needs the enterprise wording before anything goes out."
+Jordan: "Legal has not approved the banner copy yet."
+Alex: "The send queue closes at 3pm. Who owns the call?"
 
 Clean output:
 Clean ask: decide whether to send today or wait for legal/support readiness.
@@ -39,6 +39,20 @@ Full version: [examples/messy-thread-to-follow-up.md](examples/messy-thread-to-f
 ```
 
 Shareable one-pager: [docs/one-pager.md](docs/one-pager.md)
+
+## Use these skills
+
+No coding is required.
+
+Each skill lives in `skills/` as a folder with a `SKILL.md` file.
+
+Copy the skill folders into the skills directory used by your AI tool, then paste context and ask for a skill by name. For example:
+
+```text
+Use brief-me on this thread and tell me what needs my response.
+```
+
+These skills read and draft by default. They do not send, publish, create events, or update systems unless you explicitly ask.
 
 ## Privacy and control
 
