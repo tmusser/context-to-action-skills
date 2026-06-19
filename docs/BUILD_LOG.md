@@ -1,5 +1,7 @@
 # Build Log
 
+> Historical build log from the original ai-business-skills launch.
+
 ## 2026-06-09
 
 1. Read the companion-repo brief from the attached request.

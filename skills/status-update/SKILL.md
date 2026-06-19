@@ -33,18 +33,9 @@ Create a concise update from messy conversation state without losing the ask, ri
 - Label assumptions and source gaps.
 - Keep the output short enough to send quickly.
 
-## Shared Output Expectations
+## Shared Output Contract
 
-When context is messy or multi-source, include only the useful subset of:
-
-- Source-backed facts
-- Assumptions
-- Source gaps
-- Stakeholder sensitivities
-- Potential misread
-- Suggested next response or next action
-
-Do not include every field mechanically. Use the smallest useful output.
+See [shared-output-contract.md](../../references/shared-output-contract.md) for the common cross-skill output rules.
 
 ## Output
 

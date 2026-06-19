@@ -17,6 +17,22 @@ Use this when the context is too long, political, ambiguous, or important to act
 
 Do not use this for simple short threads where `brief-me`, `clear-ask`, or `follow-up-draft` can act directly.
 
+## Output size rule
+
+Default to a compact ledger with only the sections needed for the source.
+
+Use the full ledger only when the source is dense, high-stakes, contradictory, or the user explicitly asks for a full fact ledger.
+
+For short inputs, include:
+
+- Source scope
+- Atomic facts
+- Open questions
+- Action-relevant implications
+- Suggested next skill
+
+See [shared-output-contract.md](../../references/shared-output-contract.md) for the common cross-skill rules about assumptions, source gaps, stakeholder sensitivities, and mutation boundaries.
+
 ## Inputs
 
 - Long threads
@@ -31,12 +47,14 @@ Do not use this for simple short threads where `brief-me`, `clear-ask`, or `foll
 
 ## Guardrails
 
+- Read before write.
 - Do not summarize loosely.
 - Do not smooth over uncertainty.
 - Do not invent missing support.
 - Do not collapse facts, opinions, and assumptions.
 - Do not write a reply by default.
 - Do not recommend a decision by default.
+- Do not send, publish, update tickets, create events, or mutate systems unless explicitly asked.
 - Preserve uncertainty when the source is ambiguous.
 
 # Fact Ledger
@@ -146,18 +164,9 @@ Recommend one downstream skill:
 - `meeting-to-actions` if the next problem is extracting owners/actions.
 - `brief-me` if the user needs a fast catch-up.
 
-## Shared Output Expectations
+## Shared Output Contract
 
-When the source is messy or multi-source, include only the useful subset of:
-
-- Source-backed facts
-- Assumptions
-- Source gaps
-- Stakeholder sensitivities
-- Potential misread
-- Suggested next response or next action
-
-Do not include every field mechanically. Use the smallest useful output.
+See [shared-output-contract.md](../../references/shared-output-contract.md) for the common cross-skill output rules.
 
 ## Success Standard
 

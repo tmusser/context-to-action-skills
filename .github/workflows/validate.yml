@@ -1,0 +1,26 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate repo structure
+        run: python scripts/validate_repo.py
+
+      - name: Validate examples
+        run: python scripts/validate_examples.py
+
+      - name: Check git diff formatting
+        run: git diff --check

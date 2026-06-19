@@ -1,5 +1,7 @@
 # Handoff
 
+> Historical handoff packet from the original ai-business-skills launch.
+
 ## Resume Packet
 
 Read [`SPEC.md`](process/SPEC.md), [`PLAN.md`](process/PLAN.md), [`TODO.md`](process/TODO.md), and [`docs/VERIFY.md`](./VERIFY.md) before continuing.

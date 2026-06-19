@@ -1,5 +1,7 @@
 # Design Decisions
 
+> Historical launch decisions from the original ai-business-skills repo.
+
 ## Chosen Decisions
 
 1. Cowork-first, not repo-first

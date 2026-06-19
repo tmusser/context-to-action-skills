@@ -1,6 +1,6 @@
 # Process artifacts
 
-These files preserve how the repo was built and verified.
+These historical files preserve how the repo was built and verified.
 
 They are kept out of the repository root so new visitors can start with the README, examples, and skills first.
 

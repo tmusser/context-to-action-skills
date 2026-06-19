@@ -61,6 +61,16 @@ The tested path is Claude/Cowork-style skills. The underlying `SKILL.md` files c
 
 Start with `reduce-to-facts` for dense or ambiguous source, then pass the ledger to `clear-ask`, `decision-brief`, `status-update`, or `follow-up-draft`.
 
+## Current validation boundary
+
+This is the pasted-context validation boundary for the repo.
+
+The validated path is pasted-context usage with Claude/Cowork-style skills.
+
+The `SKILL.md` files are plain text and may be adapted for ChatGPT, Gemini, Codex-style agents, or internal assistants, but those paths are compatibility targets rather than fully tested integrations.
+
+Connector and action-mode behavior depends on the host assistant and the tools the user explicitly authorizes. This repo provides guardrails and output contracts; it does not independently grant tool access or mutate systems unless explicitly asked.
+
 ## Meeting without a meeting
 
 Slack threads, email chains, doc comments, tickets, and transcripts can all carry the same source state as a live meeting. Treat them as async collaboration: extract facts first, then move to the next clear action.

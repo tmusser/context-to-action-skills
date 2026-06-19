@@ -1,5 +1,7 @@
 # Verify
 
+> Historical verification log for the original ai-business-skills launch and later cleanup passes.
+
 ## 2026-06-09
 
 Task: build `ai-business-skills` v0.1 companion repo
@@ -245,6 +247,29 @@ Manual checks:
 - `decision-brief` is framed as lightweight decision support, not a polished strategy memo.
 - Examples demonstrate before/after value, not just output shapes.
 - `CONVERSATION_STATE.md` is referenced by the README and at least three skills.
+
+## 2026-06-18 Context-to-action cleanup
+
+Task: clean up rename drift, clarify the validation boundary, and add repo validation.
+
+Result: pass
+
+Commands run:
+
+1. `python scripts/validate_repo.py`
+   Result: pass
+
+2. `python scripts/validate_examples.py`
+   Result: pass
+
+3. `git diff --check`
+   Result: pass
+
+Remaining risks:
+
+- Validation covers structure and repo hygiene, not live connector behavior.
+- Pasted-context workflows are the validated path.
+- Other assistant/tool integrations remain compatibility targets until separately tested.
 
 Changed files:
 

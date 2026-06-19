@@ -30,18 +30,9 @@ Build a lightweight decision snapshot from mixed workplace context, ticket histo
 - Make trade-offs and reversal cost visible.
 - Surface source gaps and uncertainty.
 
-## Shared Output Expectations
+## Shared Output Contract
 
-When context is messy or multi-source, include only the useful subset of:
-
-- Source-backed facts
-- Assumptions
-- Source gaps
-- Stakeholder sensitivities
-- Potential misread
-- Suggested next response or next action
-
-Do not include every field mechanically. Use the smallest useful output.
+See [shared-output-contract.md](../../references/shared-output-contract.md) for the common cross-skill output rules.
 
 ## Output
 
