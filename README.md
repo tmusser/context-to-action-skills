@@ -30,7 +30,7 @@ If the source is long or ambiguous, start with `reduce-to-facts` and ask for a f
 Paste messy notes, a transcript, or connected context into Claude/Cowork and ask:
 
 ```text
-Use brief-me. Catch me up on what changed, what needs my response, risks/blockers, and suggested follow-ups.
+Use reduce-to-facts on this thread and give me a compact fact ledger with source scope, atomic facts, open questions, and action-relevant implications.
 ```
 
 Tiny example:

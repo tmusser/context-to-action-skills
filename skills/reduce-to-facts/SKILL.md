@@ -1,6 +1,6 @@
 ---
 name: reduce-to-facts
-description: Convert dense workplace source material into a compact, source-grounded fact ledger that separates supported facts, attributed opinions, unsupported claims, contradictions, open questions, and action-relevant implications.
+description: Use for dense or messy workplace source material - Slack threads, email chains, memos, transcripts, policy docs, vendor writeups, research notes, strategy notes, or customer escalations - before replying, deciding, escalating, or acting when context is long, ambiguous, stakeholder-sensitive, high-stakes, contradictory, or easy to misread; not for simple catch-ups or straightforward reply drafting unless uncertainty needs to be preserved first.
 ---
 
 # reduce-to-facts
@@ -11,7 +11,7 @@ Turn dense workplace source material into a fact ledger the user can trust befor
 
 ## When to use
 
-Use this when the context is too long, political, ambiguous, or important to act on safely from a normal summary.
+Use this when the context is too long, stakeholder-sensitive, politically sensitive inside the workplace, ambiguous, or important to act on safely from a normal summary.
 
 ## When not to use
 
@@ -22,6 +22,10 @@ Do not use this for simple short threads where `brief-me`, `clear-ask`, or `foll
 Default to a compact ledger with only the sections needed for the source.
 
 Use the full ledger only when the source is dense, high-stakes, contradictory, or the user explicitly asks for a full fact ledger.
+
+- Omit empty optional sections for compact outputs.
+- For dense or high-stakes sources, include all major sections.
+- Use "None surfaced in the reviewed source" only when that absence is itself useful.
 
 For short inputs, include:
 
@@ -56,6 +60,16 @@ See [shared-output-contract.md](../../references/shared-output-contract.md) for 
 - Do not recommend a decision by default.
 - Do not send, publish, update tickets, create events, or mutate systems unless explicitly asked.
 - Preserve uncertainty when the source is ambiguous.
+
+## Process
+
+- Identify the source scope first.
+- Create local anchors when the source does not provide them, such as line numbers, timestamps, speaker labels, file names, or section names.
+- Extract only source-supported claims.
+- Treat "X said Y" as a fact about the statement, not proof that Y is true.
+- Move weakly supported claims into Unsupported or Under-Supported Claims.
+- Label reasoning beyond the source as Inference.
+- Keep implications as constraints, not final recommendations.
 
 # Fact Ledger
 
@@ -163,6 +177,14 @@ Recommend one downstream skill:
 - `follow-up-draft` if the next problem is replying safely.
 - `meeting-to-actions` if the next problem is extracting owners/actions.
 - `brief-me` if the user needs a fast catch-up.
+
+If a named downstream skill is unavailable in the host assistant, describe the next step in plain language instead of pretending the skill can be invoked.
+
+## Confidence Rubric
+
+- High: directly stated with a clear anchor, or supported by multiple consistent anchors.
+- Medium: directly stated but context is incomplete, wording is ambiguous, or only one source supports it.
+- Low: implied, secondhand, weakly supported, or dependent on missing context.
 
 ## Shared Output Contract
 

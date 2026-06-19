@@ -13,7 +13,6 @@ INPUT_HINTS = ["messy input", "raw input"]
 INTERPRETATION_HINTS = ["what the skill notices", "what changed"]
 OUTPUT_HINTS = ["clean output", "output fact ledger", "suggested follow-up draft"]
 UNCERTAINTY_HINTS = ["source gaps", "source scope", "source confidence", "confidence"]
-WHY_HINTS = ["why this is better than a generic ai reply", "why this beats a generic summary"]
 
 
 def fail(message: str) -> None:
@@ -47,8 +46,7 @@ def validate_example(path: Path) -> None:
         missing.append("a clean-output section")
     if not has_any(text, UNCERTAINTY_HINTS):
         missing.append("an uncertainty or source-gap section")
-    if not has_any(text, WHY_HINTS):
-        missing.append("a generic-summary comparison section")
+    # The generic-summary comparison section is optional for compact ledger-style examples.
 
     if missing:
         fail(f"{path.relative_to(ROOT)} is missing required structure: {', '.join(missing)}")

@@ -25,6 +25,12 @@ A launch-readiness thread needs a fact ledger before anyone decides whether the 
 Use reduce-to-facts on this thread. Give me a fact ledger with source scope, atomic facts, attributed opinions, unsupported claims, contradictions, open questions, and action-relevant implications.
 ```
 
+## What The Skill Notices
+
+- The thread mixes source-backed facts with weakly supported risk claims.
+- Legal, support, and security are still open, so Friday is not a clean approval.
+- The 3pm exec update creates pressure, but the final owner is not named.
+
 ## Output Fact Ledger
 
 # Fact Ledger
@@ -91,19 +97,6 @@ Use reduce-to-facts on this thread. Give me a fact ledger with source scope, ato
 - The thread supports a readiness risk, not a launch decision.
 - The 3pm update should state blockers plainly instead of implying readiness.
 Do not treat these implications as final decisions.
-
-## What Changed
-
-- The thread is not a clean launch approval.
-- Legal, support, and security are all still conditional.
-- The low-risk claim is not source-backed.
-- No decision owner is named.
-
-## Why This Beats a Generic Summary
-
-- It separates fact, opinion, unsupported claim, and inference instead of blending them.
-- It keeps legal, support, and security tensions visible.
-- It gives downstream skills a factual substrate they can use safely.
 
 ## Suggested Next Skill
 
