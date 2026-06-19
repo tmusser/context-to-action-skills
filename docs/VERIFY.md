@@ -282,3 +282,44 @@ Remaining risks:
 Next safest task:
 
 - Keep the V0.2 shape stable unless a future release needs a new example or skill contract.
+
+## 2026-06-18 Schema-backed validation boundary
+
+Task: add optional machine-readable schemas, fixture validation, and CI checks without turning the repo into deterministic infrastructure.
+
+Result: pass
+
+Commands run:
+
+1. `python scripts/validate_repo.py`
+   Result: pass
+
+2. `python scripts/validate_examples.py`
+   Result: pass
+
+3. `python scripts/validate_schemas.py`
+   Result: pass
+
+4. `git diff --check`
+   Result: pass
+
+What changed:
+
+- Added optional JSON schemas under `schemas/` for stricter machine-readable handoff state.
+- Added expected-output fixtures under `examples/fixtures/`.
+- Added `scripts/validate_schemas.py` to validate schema shape, fixture mappings, fixture instances, and key semantic expectations.
+- Updated CI to run schema validation.
+- Updated README positioning to clarify that this is a lightweight pasted-context skill pack, not a deterministic workflow engine, MCP server, ticketing system, or project-management backend.
+- Added `docs/integration-roadmap.md` to explain why MCP, IDE exports, and native assistant integrations are future packaging layers rather than current requirements.
+
+Remaining risks:
+
+- This validates repo structure, example shape, schemas, and fixture semantics; it does not validate live connector behavior.
+- Pasted-context workflows remain the validated path.
+- Other assistant/tool integrations remain compatibility targets until separately tested.
+- `scripts/validate_schemas.py` is a lightweight repo-local validator, not a complete JSON Schema Draft 2020-12 implementation.
+- There is still no LLM quality regression harness or LLM-as-judge eval suite.
+
+Next safest task:
+
+- Keep the schema layer lightweight unless future examples need stricter typed handoff state.
