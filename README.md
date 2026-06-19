@@ -73,6 +73,18 @@ The `SKILL.md` files are plain text and may be adapted for ChatGPT, Gemini, Code
 
 Connector and action-mode behavior depends on the host assistant and the tools the user explicitly authorizes. This repo provides guardrails and output contracts; it does not independently grant tool access or mutate systems unless explicitly asked.
 
+For why MCP stays out of scope for now, see [integration roadmap](docs/integration-roadmap.md).
+
+## What this is / is not
+
+This repo is a lightweight skill pack for pasted workplace context.
+
+It is not a deterministic workflow engine, ticketing system, MCP server, or project-management backend.
+
+The skills provide reusable instruction contracts and examples. They help an assistant preserve uncertainty, identify asks, surface owners, draft replies, and avoid unsafe action. They do not guarantee structured output unless the host assistant follows the requested format.
+
+For machine-validated workflows, use the optional schemas and examples as a stricter handoff layer.
+
 ## Meeting without a meeting
 
 Slack threads, email chains, doc comments, tickets, and transcripts can all carry the same source state as a live meeting. Treat them as async collaboration: extract facts first, then move to the next clear action.

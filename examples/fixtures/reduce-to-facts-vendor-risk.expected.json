@@ -1,0 +1,86 @@
+{
+  "source_scope": {
+    "sources_reviewed": [
+      "vendor-risk Slack thread lines 1-10"
+    ],
+    "known_limitations": [
+      "no DPA text",
+      "no staffing plan",
+      "no security ticket"
+    ],
+    "source_gaps": [
+      "final decision owner",
+      "rollback readiness",
+      "exact launch criteria"
+    ]
+  },
+  "facts": [
+    {
+      "id": "F1",
+      "text": "Product wants the vendor integration live Friday if legal clears it.",
+      "source_anchor": "Line 1",
+      "confidence": "high"
+    },
+    {
+      "id": "F2",
+      "text": "Legal has not approved the updated DPA.",
+      "source_anchor": "Line 2",
+      "confidence": "high"
+    },
+    {
+      "id": "F5",
+      "text": "Exec updates go out at 3pm today.",
+      "source_anchor": "Line 8",
+      "confidence": "high"
+    },
+    {
+      "id": "F6",
+      "text": "No final owner is listed in the thread.",
+      "source_anchor": "Line 10",
+      "confidence": "high"
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "A1",
+      "text": "The Friday target is not approval.",
+      "source_anchor": "Lines 1-2",
+      "confidence": "low"
+    }
+  ],
+  "open_questions": [
+    {
+      "id": "Q1",
+      "text": "Who owns the final go/no-go call?",
+      "source_anchor": "Lines 9-10",
+      "confidence": "high"
+    }
+  ],
+  "decisions": [],
+  "actions": [],
+  "risks": [
+    {
+      "id": "R1",
+      "text": "Friday launch remains blocked until legal, security, and support clear.",
+      "source_anchor": "Lines 1-4",
+      "confidence": "medium"
+    }
+  ],
+  "unsupported_claims": [
+    {
+      "id": "C1",
+      "text": "Implementation risk looks low.",
+      "source_anchor": "Line 5",
+      "confidence": "low",
+      "evidence_needed": "Pilot results or rollout metrics"
+    },
+    {
+      "id": "C2",
+      "text": "Support can handle the launch.",
+      "source_anchor": "Line 3",
+      "confidence": "medium",
+      "evidence_needed": "On-call coverage and rollback plan"
+    }
+  ],
+  "suggested_next_response": "Use decision-brief to choose whether to launch Friday or delay."
+}

@@ -8,6 +8,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+SCHEMAS_DIR = ROOT / "schemas"
+FIXTURES_DIR = ROOT / "examples" / "fixtures"
 HISTORICAL_PATTERNS = [
     re.compile(r"ai-business-skills"),
     re.compile(r"business-user", re.IGNORECASE),
@@ -33,6 +35,18 @@ README = ROOT / "README.md"
 AGENTS = ROOT / "AGENTS.md"
 SKILLS_DIR = ROOT / "skills"
 SHARED_CONTRACT = ROOT / "references/shared-output-contract.md"
+SCHEMA_FILES = [
+    SCHEMAS_DIR / "conversation_state.schema.json",
+    SCHEMAS_DIR / "action_record.schema.json",
+    SCHEMAS_DIR / "decision_snapshot.schema.json",
+    SCHEMAS_DIR / "status_update.schema.json",
+]
+TEMPLATE_FILES = [
+    ROOT / "templates/CONVERSATION_STATE.md",
+    ROOT / "templates/ACTIONS.md",
+    ROOT / "templates/DECISIONS.md",
+    ROOT / "templates/UPDATE.md",
+]
 
 
 def fail(message: str) -> None:
@@ -145,6 +159,7 @@ def validate_readme() -> None:
         "pasted-context validation boundary",
         "reduce-to-facts",
         "mutate systems unless explicitly asked",
+        "optional schemas",
     ]
     for phrase in required_phrases:
         if phrase not in lowered:
@@ -158,6 +173,29 @@ def validate_readme() -> None:
         resolved = resolve_link(README, link)
         if resolved is not None and not resolved.exists():
             fail(f"README link does not resolve: {link}")
+
+    if not (ROOT / "docs/integration-roadmap.md").exists():
+        fail("docs/integration-roadmap.md is missing")
+
+    for schema_file in SCHEMA_FILES:
+        if not schema_file.exists():
+            fail(f"missing schema file: {schema_file.relative_to(ROOT)}")
+
+    if not SCHEMAS_DIR.exists():
+        fail("schemas directory is missing")
+
+    if not FIXTURES_DIR.exists():
+        fail("examples/fixtures directory is missing")
+
+    if not (ROOT / "scripts/validate_schemas.py").exists():
+        fail("scripts/validate_schemas.py is missing")
+
+    schema_note = "map this Markdown state to the matching schema under `schemas/`."
+    for template in TEMPLATE_FILES:
+        if not template.exists():
+            fail(f"missing template file: {template.relative_to(ROOT)}")
+        if schema_note not in read_text(template):
+            fail(f"{template.relative_to(ROOT)} is missing the schema mapping note")
 
 
 def resolve_link(source_file: Path, link: str) -> Path | None:

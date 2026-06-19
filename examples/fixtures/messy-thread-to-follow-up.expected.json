@@ -1,0 +1,78 @@
+{
+  "source_scope": {
+    "sources_reviewed": [
+      "messy Slack thread"
+    ],
+    "known_limitations": [
+      "legal approval missing",
+      "support readiness unresolved"
+    ],
+    "source_gaps": [
+      "no final decision owner",
+      "whether today's send is blocked by legal/support",
+      "who will answer at 3pm"
+    ]
+  },
+  "facts": [
+    {
+      "id": "F1",
+      "text": "The send queue closes at 3pm.",
+      "source_anchor": "Alex line 5",
+      "confidence": "high"
+    },
+    {
+      "id": "F2",
+      "text": "Support needs the enterprise wording before anything goes out.",
+      "source_anchor": "Priya line 3",
+      "confidence": "high"
+    },
+    {
+      "id": "F3",
+      "text": "Legal has not approved the banner copy yet.",
+      "source_anchor": "Jordan line 4",
+      "confidence": "high"
+    },
+    {
+      "id": "F4",
+      "text": "No final decision owner is named.",
+      "source_anchor": "Thread",
+      "confidence": "high"
+    }
+  ],
+  "assumptions": [],
+  "open_questions": [
+    {
+      "id": "Q1",
+      "text": "Who owns the final decision?",
+      "source_anchor": "Alex line 5",
+      "confidence": "high"
+    }
+  ],
+  "decisions": [],
+  "actions": [
+    {
+      "id": "A1",
+      "text": "Ask for a named decision owner and a 3pm confirm-or-wait call.",
+      "source_anchor": "Thread",
+      "confidence": "medium",
+      "status": "proposed"
+    }
+  ],
+  "blockers": [
+    {
+      "id": "B1",
+      "text": "Legal approval and support readiness are both unresolved.",
+      "source_anchor": "Thread",
+      "confidence": "high"
+    }
+  ],
+  "risks": [
+    {
+      "id": "R1",
+      "text": "Sending today could overrun legal or support readiness.",
+      "source_anchor": "Thread",
+      "confidence": "medium"
+    }
+  ],
+  "suggested_next_response": "Can we name the decision owner and confirm by 3pm whether legal/support readiness blocks today's send?"
+}

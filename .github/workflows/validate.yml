@@ -22,5 +22,8 @@ jobs:
       - name: Validate examples
         run: python scripts/validate_examples.py
 
+      - name: Validate schemas
+        run: python scripts/validate_schemas.py
+
       - name: Check git diff formatting
         run: git diff --check
