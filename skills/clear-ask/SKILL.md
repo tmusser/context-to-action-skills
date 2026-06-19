@@ -1,6 +1,6 @@
 ---
 name: clear-ask
-description: Turn vague business context into a crisp ask with clear ownership and timing.
+description: Turn vague workplace context into a crisp ask with clear ownership and timing.
 ---
 
 # clear-ask
@@ -20,7 +20,7 @@ Convert a fuzzy request, thread, or note into a direct ask someone can understan
 - Slack or email draft
 - Meeting notes
 - Project context
-- Pasted business context
+- Pasted workplace context
 
 ## Guardrails
 

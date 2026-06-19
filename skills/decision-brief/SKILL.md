@@ -1,13 +1,13 @@
 ---
 name: decision-brief
-description: Create a lightweight decision snapshot from messy business context and supporting evidence.
+description: Create a lightweight decision snapshot from messy workplace context and supporting evidence.
 ---
 
 # decision-brief
 
 ## Purpose
 
-Build a lightweight decision snapshot from mixed business context, ticket history, and evidence.
+Build a lightweight decision snapshot from mixed workplace context, ticket history, and evidence.
 
 ## Use For
 

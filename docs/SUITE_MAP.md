@@ -7,10 +7,10 @@ A small set of repos for making AI-assisted work clearer, more bounded, and more
 - Audience: technical builders using coding agents.
 - Job: clarify, constrain, verify, and hand off small software work.
 
-## ai-business-skills
+## context-to-action-skills
 
 - Audience: PMs, managers, analysts, operators, and exec-adjacent ICs.
-- Job: turn messy workplace context into clear asks, decisions, owners, updates, and follow-ups.
+- Job: turn messy workplace context into clear facts, asks, decisions, owners, updates, and follow-ups.
 
 ## chart-contract
 

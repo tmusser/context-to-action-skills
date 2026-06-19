@@ -30,7 +30,7 @@ Draft a concise follow-up that preserves the ask, owner, timing, context, and ne
 - Do not send the draft unless explicitly asked.
 - Include the ask, owner, deadline or timing, and next step when known.
 - Label assumptions or missing details.
-- Keep the message concise and business-user friendly.
+- Keep the message concise and workplace-user friendly.
 
 ## Shared Output Expectations
 

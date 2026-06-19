@@ -1,6 +1,6 @@
 ---
 name: brief-me
-description: Catch the user up from messy business context and surface what needs attention.
+description: Catch the user up from messy workplace context and surface what needs attention.
 ---
 
 # brief-me
@@ -35,7 +35,7 @@ Turn messy connected or pasted context into a short conversation-state brief the
 - Prefer small source windows.
 - Surface source gaps.
 - Do not dump raw transcript content by default.
-- Keep the output business-user friendly.
+- Keep the output workplace-user friendly.
 
 ## Shared Output Expectations
 

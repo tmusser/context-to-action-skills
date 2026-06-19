@@ -1,8 +1,10 @@
-# ai-business-skills
+# context-to-action-skills
 
-Paste a messy thread or notes; get the clean ask, decision, owner, risk, and reply.
+Formerly `ai-business-skills`.
 
-Use it when a Slack thread, email chain, meeting transcript, doc comment, Jira discussion, or project conversation contains signal, but not yet a clean ask, decision, owner, update, or follow-up.
+Claude skills for turning messy workplace context into clear facts, asks, decisions, owners, risks, updates, and safe replies.
+
+Most AI tools summarize context. This repo turns context into action while preserving uncertainty.
 
 ## What it does in 30 seconds
 
@@ -10,17 +12,20 @@ Use it when a Slack thread, email chain, meeting transcript, doc comment, Jira d
 | --- | --- |
 | A workplace thread with disagreement, legal uncertainty, support readiness risk, a soft deadline, and no named decision owner | Clean ask, decision needed, owner gap, risk/tone note, and a reply draft you can paste |
 
-The promise is small: turn messy business context into the next clear move without pretending uncertainty is resolved.
+The promise is small: turn messy workplace context into the next clear move without pretending uncertainty is resolved.
 
 ## Use It When...
 
 - A Slack thread, email chain, or meeting transcript needs a fast catch-up
 - Someone asked a vague question and you need to clarify the ask
+- A dense memo, policy doc, vendor writeup, or transcript needs a fact ledger before anyone acts on it
 - A conversation has decisions, owners, deadlines, blockers, or open loops
 - You need to draft the next context-aware reply
 - You need to brief other people on what changed
 
 ## Try This First
+
+If the source is long or ambiguous, start with `reduce-to-facts` and ask for a fact ledger before asking for a reply, update, or decision.
 
 Paste messy notes, a transcript, or connected context into Claude/Cowork and ask:
 
@@ -54,6 +59,12 @@ These are plain-text skills, so the lowest-friction mode is copy/paste: paste th
 
 The tested path is Claude/Cowork-style skills. The underlying `SKILL.md` files can also be adapted as reusable prompts for ChatGPT, Gemini, Codex-style agents, or internal AI assistants. No connector is required for pasted-context mode.
 
+Start with `reduce-to-facts` for dense or ambiguous source, then pass the ledger to `clear-ask`, `decision-brief`, `status-update`, or `follow-up-draft`.
+
+## Meeting without a meeting
+
+Slack threads, email chains, doc comments, tickets, and transcripts can all carry the same source state as a live meeting. Treat them as async collaboration: extract facts first, then move to the next clear action.
+
 ## Use these skills
 
 No coding is required.
@@ -67,6 +78,7 @@ Use brief-me on this thread and tell me what needs my response.
 ```
 
 These skills read and draft by default. They do not send, publish, create events, or update systems unless you explicitly ask.
+Start with `reduce-to-facts` when the source is too long or ambiguous to act on safely, then move to `clear-ask`, `decision-brief`, `status-update`, or `follow-up-draft`.
 
 ## Privacy and control
 
@@ -80,6 +92,7 @@ These skills read and draft by default. They do not send, publish, create events
 
 This repo is for the work before the work:
 
+- reduce dense context to safe facts
 - understand what people said
 - identify what changed
 - separate facts from assumptions
@@ -95,34 +108,20 @@ This is not a deck generator, project-management framework, or heavy artifact fa
 
 | Input | State extracted | Output |
 | --- | --- | --- |
+| Dense context, long thread, memo, policy doc, vendor writeup, or transcript | Facts you can rely on, plus opinions, unsupported claims, contradictions, open questions, and implications | `reduce-to-facts` fact ledger you can pass downstream |
 | Slack thread, email chain, meeting transcript, doc comment, or Jira/Confluence discussion | What changed, clean ask, decision, owner, deadline, blocker, source confidence, and tone risk | Reply draft, follow-up, status update, decision snapshot, or action list |
 
 ## Workflows
 
 | Workflow | User question | Skill |
 | --- | --- | --- |
+| Reduce dense context | What can we safely rely on? | `reduce-to-facts` |
 | Catch up | What did I miss? | `brief-me` |
 | Clarify | What are they actually asking? | `clear-ask` |
 | Extract actions | What are the actions and open loops? | `meeting-to-actions` |
 | Decide | What decision is needed? | `decision-brief` |
 | Respond | What should I say back? | `follow-up-draft` |
 | Broadcast | What should others know? | `status-update` |
-
-## Meeting without a meeting
-
-Many workplace meetings do not happen in Zoom.
-
-A Slack thread, Gmail chain, Google Doc comment thread, Jira discussion, or Confluence page can contain the same things a live meeting does:
-
-- decisions
-- objections
-- owner changes
-- implied deadlines
-- unresolved questions
-- stakeholder sensitivities
-- political or contextual tone
-
-These skills process async conversations the same way you would process a meeting: extract state, identify open loops, and draft the next context-aware response.
 
 ## Operating Modes
 
@@ -145,6 +144,7 @@ Shared guidance for mixed-source inputs lives in [source-packet.md](references/s
 
 ## Examples
 
+- [Reduce to facts vendor risk](examples/reduce-to-facts-vendor-risk.md)
 - [Messy thread to follow-up](examples/messy-thread-to-follow-up.md)
 - [Gmail buried obligation](examples/gmail-buried-obligation.md)
 - [Leadership status update](examples/leadership-status-update.md)
