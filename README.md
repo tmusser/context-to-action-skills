@@ -33,6 +33,8 @@ Paste messy notes, a transcript, or connected context into Claude/Cowork and ask
 Use reduce-to-facts on this thread and give me a compact fact ledger with source scope, atomic facts, open questions, and action-relevant implications.
 ```
 
+`reduce-to-facts` defaults to source-only mode. Ask for source-expanded mode only when you want outside evidence checked; it adds a Claim Status table and Rhetorical Leaps.
+
 Tiny example:
 
 ```text
@@ -155,6 +157,7 @@ Shared guidance for mixed-source inputs lives in [source-packet.md](references/s
 ## Examples
 
 - [Reduce to facts vendor risk](examples/reduce-to-facts-vendor-risk.md)
+- [Reduce to facts source expanded](examples/reduce-to-facts-source-expanded.md)
 - [Messy thread to follow-up](examples/messy-thread-to-follow-up.md)
 - [Gmail buried obligation](examples/gmail-buried-obligation.md)
 - [Leadership status update](examples/leadership-status-update.md)
@@ -162,6 +165,8 @@ Shared guidance for mixed-source inputs lives in [source-packet.md](references/s
 - [Morning brief](examples/morning-brief.md)
 - [Decision with data](examples/decision-with-data.md)
 - [Async Slack clear ask](examples/async-slack-clear-ask.md)
+
+See [examples/README.md](examples/README.md) for a quick index of what each example demonstrates.
 
 ## Keep It Practical
 

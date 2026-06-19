@@ -53,7 +53,9 @@ def validate_example(path: Path) -> None:
 
 
 def main() -> None:
-    examples = sorted(EXAMPLES_DIR.glob("*.md"))
+    examples = sorted(
+        path for path in EXAMPLES_DIR.glob("*.md") if path.name != "README.md"
+    )
     if not examples:
         fail("no example files found")
 

@@ -1,6 +1,6 @@
 ---
 name: reduce-to-facts
-description: Use for dense or messy workplace source material - Slack threads, email chains, memos, transcripts, policy docs, vendor writeups, research notes, strategy notes, or customer escalations - before replying, deciding, escalating, or acting when context is long, ambiguous, stakeholder-sensitive, high-stakes, contradictory, or easy to misread; not for simple catch-ups or straightforward reply drafting unless uncertainty needs to be preserved first.
+description: Use for dense or messy workplace source material - Slack threads, email chains, memos, transcripts, policy docs, vendor writeups, research notes, strategy notes, or customer escalations - before replying, deciding, escalating, or acting when context is long, ambiguous, stakeholder-sensitive, high-stakes, contradictory, or easy to misread. Use source-expanded mode only when the user explicitly asks to verify, fact-check, expand sources, support or refute claims, or use outside sources; not for simple catch-ups or straightforward reply drafting unless uncertainty needs to be preserved first.
 ---
 
 # reduce-to-facts
@@ -11,7 +11,7 @@ Turn dense workplace source material into a fact ledger the user can trust befor
 
 ## When to use
 
-Use this when the context is too long, stakeholder-sensitive, politically sensitive inside the workplace, ambiguous, or important to act on safely from a normal summary.
+Use this when the context is too long, ambiguous, stakeholder-sensitive, high-stakes, contradictory, or too important to act on safely from a normal summary.
 
 ## When not to use
 
@@ -37,6 +37,32 @@ For short inputs, include:
 
 See [shared-output-contract.md](../../references/shared-output-contract.md) for the common cross-skill rules about assumptions, source gaps, stakeholder sensitivities, and mutation boundaries.
 
+## Source Mode
+
+Default to source-only mode.
+
+Switch to source-expanded mode only when the user explicitly asks to verify, fact-check, expand sources, support claims, refute claims, or use outside sources.
+
+### Source-Only Mode
+
+- Use only the supplied source material.
+- Do not verify externally.
+- Do not treat supplied material as true by default.
+- Separate directly stated claims from implied, assumed, or unsupported claims.
+- Use source anchors from the supplied material.
+
+### Source-Expanded Mode
+
+- Use only when explicitly asked.
+- Keep the source-only ledger logic.
+- Add outside evidence only where authorized.
+- Do not pretend to have checked sources that were not actually checked.
+- Distinguish exact support from support in substance.
+- Do not use related evidence as proof of a specific claim.
+- Do not collapse contested claims into facts.
+- Include citations, links, or source anchors when supported.
+- If tools are unavailable, say so and keep the claim unverified.
+
 ## Inputs
 
 - Long threads
@@ -56,6 +82,7 @@ See [shared-output-contract.md](../../references/shared-output-contract.md) for 
 - Do not smooth over uncertainty.
 - Do not invent missing support.
 - Do not collapse facts, opinions, and assumptions.
+- Do not upgrade "supported in substance" to "supported exactly."
 - Do not write a reply by default.
 - Do not recommend a decision by default.
 - Do not send, publish, update tickets, create events, or mutate systems unless explicitly asked.
@@ -70,6 +97,40 @@ See [shared-output-contract.md](../../references/shared-output-contract.md) for 
 - Move weakly supported claims into Unsupported or Under-Supported Claims.
 - Label reasoning beyond the source as Inference.
 - Keep implications as constraints, not final recommendations.
+
+## Confidence Rubric
+
+- High: directly stated with a clear anchor, or supported by multiple consistent anchors.
+- Medium: directly stated but context is incomplete, wording is ambiguous, or only one source supports it.
+- Low: implied, secondhand, weakly supported, or dependent on missing context.
+
+## Claim Status Table
+
+Use this table in source-expanded mode, or whenever you need to show which claims got stronger, weaker, contested, or unverified after outside evidence.
+
+| Claim | Status | Evidence | Caveat |
+| --- | --- | --- | --- |
+
+Status meanings:
+
+- Supported exactly: the source says this directly, with matching wording or a direct equivalent.
+- Supported in substance: the source backs the core point, but the exact wording is broader or sharper than the source.
+- Partly supported: part of the claim is source-backed, but part of it is not.
+- Contested: sources disagree.
+- Overstated: the claim reaches beyond what the evidence can support.
+- Unsupported: no source support found.
+- Refuted: available evidence cuts against the claim.
+- Unverified: not checked, or not enough evidence was found.
+
+Do not upgrade "supported in substance" to "supported exactly."
+
+## Rhetorical Leaps
+
+- Show the move from exact wording to broader implication.
+- Keep evidence, interpretation, and persuasion separate.
+- A quote or denial can support a concern without supporting the strongest version of that concern.
+- If a source step is rhetorical rather than evidentiary, label it as such.
+- Do not dismiss the source; explain the leap.
 
 # Fact Ledger
 
@@ -180,12 +241,6 @@ Recommend one downstream skill:
 
 If a named downstream skill is unavailable in the host assistant, describe the next step in plain language instead of pretending the skill can be invoked.
 
-## Confidence Rubric
-
-- High: directly stated with a clear anchor, or supported by multiple consistent anchors.
-- Medium: directly stated but context is incomplete, wording is ambiguous, or only one source supports it.
-- Low: implied, secondhand, weakly supported, or dependent on missing context.
-
 ## Shared Output Contract
 
 See [shared-output-contract.md](../../references/shared-output-contract.md) for the common cross-skill output rules.
@@ -193,3 +248,4 @@ See [shared-output-contract.md](../../references/shared-output-contract.md) for 
 ## Success Standard
 
 The user should be able to trust the fact ledger as a clean substrate for the next step.
+In source-expanded mode, the user should also be able to see which claims got stronger, weaker, stayed contested, or remained unverified after outside evidence was checked.
