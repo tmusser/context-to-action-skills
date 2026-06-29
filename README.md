@@ -1,5 +1,8 @@
 # context-to-action-skills
 
+[![CI](https://github.com/tmusser/context-to-action-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/tmusser/context-to-action-skills/actions/workflows/validate.yml)
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 Formerly `ai-business-skills`.
 
 Claude skills for turning messy workplace context into clear facts, asks, decisions, owners, risks, updates, and safe replies.
@@ -22,6 +25,17 @@ The promise is small: turn messy workplace context into the next clear move with
 - A conversation has decisions, owners, deadlines, blockers, or open loops
 - You need to draft the next context-aware reply
 - You need to brief other people on what changed
+
+## Easy install
+
+```sh
+git clone https://github.com/tmusser/context-to-action-skills.git
+cd context-to-action-skills
+./install.sh --claude-user --only reduce-to-facts,clear-ask,decision-brief,follow-up-draft
+./install.sh --codex-user --only reduce-to-facts,clear-ask,decision-brief,follow-up-draft
+```
+
+Start with `reduce-to-facts`; it is the safest first move for dense or ambiguous context. `clear-ask`, `decision-brief`, and `follow-up-draft` turn the ledger into action, and the full set adds `brief-me`, `meeting-to-actions`, and `status-update`. `--include-templates` is optional if you also want the supporting templates. Use `--force` only when you intentionally want to replace an existing destination that differs.
 
 ## Try This First
 
@@ -95,7 +109,7 @@ No coding is required.
 
 Each skill lives in `skills/` as a folder with a `SKILL.md` file.
 
-Copy the skill folders into the skills directory used by your AI tool, then paste context and ask for a skill by name. For example:
+If your AI tool can read a local skills directory, point it at `skills/`. If it supports one of the Claude/Codex paths above, use the installer. Otherwise copy the folders into the directory it expects, then paste context and ask for a skill by name. For example:
 
 ```text
 Use brief-me on this thread and tell me what needs my response.

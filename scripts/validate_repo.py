@@ -33,6 +33,9 @@ HISTORICAL_FILES = {
 
 README = ROOT / "README.md"
 AGENTS = ROOT / "AGENTS.md"
+INSTALL_SH = ROOT / "install.sh"
+INSTALLER_SCRIPT = ROOT / "scripts/install_skills.py"
+WORKFLOW = ROOT / ".github/workflows/validate.yml"
 SKILLS_DIR = ROOT / "skills"
 SHARED_CONTRACT = ROOT / "references/shared-output-contract.md"
 SCHEMA_FILES = [
@@ -101,6 +104,12 @@ def validate_repo_identity() -> None:
         fail("README.md is missing")
     if not AGENTS.exists():
         fail("AGENTS.md is missing")
+    if not INSTALL_SH.exists():
+        fail("install.sh is missing")
+    if not INSTALLER_SCRIPT.exists():
+        fail("scripts/install_skills.py is missing")
+    if not WORKFLOW.exists():
+        fail(".github/workflows/validate.yml is missing")
     if not SHARED_CONTRACT.exists():
         fail("references/shared-output-contract.md is missing")
 

@@ -16,6 +16,52 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Installer smoke tests
+        run: |
+          python -m py_compile scripts/validate_repo.py scripts/validate_examples.py scripts/validate_schemas.py
+          python -m py_compile scripts/install_skills.py
+          bash install.sh --help
+
+          tmp_home="$(mktemp -d)"
+          HOME="$tmp_home" ./install.sh --claude-user --dry-run
+          test ! -e "$tmp_home/.claude/skills"
+
+          tmp_home="$(mktemp -d)"
+          HOME="$tmp_home" ./install.sh --codex-user --dry-run
+          test ! -e "$tmp_home/.agents/skills"
+
+          tmp_home="$(mktemp -d)"
+          HOME="$tmp_home" ./install.sh --claude-user --only reduce-to-facts,clear-ask
+          test -f "$tmp_home/.claude/skills/reduce-to-facts/SKILL.md"
+          test -f "$tmp_home/.claude/skills/clear-ask/SKILL.md"
+          HOME="$tmp_home" ./install.sh --claude-user --only reduce-to-facts,clear-ask
+          HOME="$tmp_home" ./install.sh --claude-user --only reduce-to-facts,clear-ask --dry-run
+
+          tmp_home="$(mktemp -d)"
+          HOME="$tmp_home" ./install.sh --codex-user --only reduce-to-facts --include-templates
+          test -f "$tmp_home/.agents/skills/reduce-to-facts/SKILL.md"
+          test -f "$tmp_home/.agents/context-to-action-skills/templates/ACTIONS.md"
+
+          tmp_project="$(mktemp -d)"
+          ./install.sh --codex-project "$tmp_project" --only status-update --include-templates
+          test -f "$tmp_project/.agents/skills/status-update/SKILL.md"
+          test -f "$tmp_project/docs/context-to-action-skills/templates/ACTIONS.md"
+
+          tmp_home="$(mktemp -d)"
+          HOME="$tmp_home" ./install.sh --claude-user --only reduce-to-facts
+          printf '\nlocal edit\n' >> "$tmp_home/.claude/skills/reduce-to-facts/SKILL.md"
+          if HOME="$tmp_home" ./install.sh --claude-user --only reduce-to-facts; then
+            echo "expected differing reinstall to fail without --force"
+            exit 1
+          fi
+          HOME="$tmp_home" ./install.sh --claude-user --only reduce-to-facts --force
+          ! grep -q "local edit" "$tmp_home/.claude/skills/reduce-to-facts/SKILL.md"
+
+          if ./install.sh --claude-user --only does-not-exist; then
+            echo "unknown skill should have failed"
+            exit 1
+          fi
+
       - name: Validate repo structure
         run: python scripts/validate_repo.py
 
