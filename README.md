@@ -3,9 +3,11 @@
 [![CI](https://github.com/tmusser/context-to-action-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/tmusser/context-to-action-skills/actions/workflows/validate.yml)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+![Context-to-action workflow: messy workplace context transformed into clear next actions](assets/hero.png)
+
 Formerly `ai-business-skills`.
 
-Claude skills for turning messy workplace context into clear facts, asks, decisions, owners, risks, updates, and safe replies.
+context-to-action-skills is the action layer for messy workplace context.
 
 Most AI tools summarize context. This repo turns context into action while preserving uncertainty.
 
@@ -13,20 +15,25 @@ Most AI tools summarize context. This repo turns context into action while prese
 
 | Messy context | Clean output |
 | --- | --- |
-| A workplace thread with disagreement, legal uncertainty, support readiness risk, a soft deadline, and no named decision owner | Clean ask, decision needed, owner gap, risk/tone note, and a reply draft you can paste |
+| A Slack thread with disagreement, legal uncertainty, support readiness risk, a 3pm deadline, and no named decision owner | Clean ask, decision needed, owner gap, risk/tone note, and a reply draft you can paste |
 
 The promise is small: turn messy workplace context into the next clear move without pretending uncertainty is resolved.
 
-## Use It When...
+## Start here
 
-- A Slack thread, email chain, or meeting transcript needs a fast catch-up
-- Someone asked a vague question and you need to clarify the ask
-- A dense memo, policy doc, vendor writeup, or transcript needs a fact ledger before anyone acts on it
-- A conversation has decisions, owners, deadlines, blockers, or open loops
-- You need to draft the next context-aware reply
-- You need to brief other people on what changed
+This repo is a lightweight skill pack for pasted workplace context.
 
-## Easy install
+It is not a deterministic workflow engine, ticketing system, MCP server, or project-management backend.
+
+The skills provide reusable instruction contracts and examples. They help an assistant preserve uncertainty, identify asks, surface owners, draft replies, and avoid unsafe action.
+
+Slack threads, email chains, doc comments, tickets, and transcripts can all carry the same source state as a live meeting. Treat them as async collaboration: extract facts first, then move to the next clear action.
+
+For machine-validated workflows, use the optional schemas and examples as a stricter handoff layer.
+
+## Try it in 60 seconds
+
+No coding is required.
 
 ```sh
 git clone https://github.com/tmusser/context-to-action-skills.git
@@ -36,10 +43,6 @@ cd context-to-action-skills
 ```
 
 Start with `reduce-to-facts`; it is the safest first move for dense or ambiguous context. `clear-ask`, `decision-brief`, and `follow-up-draft` turn the ledger into action, and the full set adds `brief-me`, `meeting-to-actions`, and `status-update`. `--include-templates` is optional if you also want the supporting templates. Use `--force` only when you intentionally want to replace an existing destination that differs.
-
-## Try This First
-
-If the source is long or ambiguous, start with `reduce-to-facts` and ask for a fact ledger before asking for a reply, update, or decision.
 
 Paste messy notes, a transcript, or connected context into Claude/Cowork and ask:
 
@@ -69,15 +72,56 @@ Full version: [examples/messy-thread-to-follow-up.md](examples/messy-thread-to-f
 
 Shareable one-pager: [docs/one-pager.md](docs/one-pager.md)
 
-## Works with pasted context
+## What it creates
 
-These are plain-text skills, so the lowest-friction mode is copy/paste: paste the thread, note, email, transcript, or doc excerpt into your AI tool and ask for the skill by name.
+The output here is a fact ledger, a reply draft, a status update, or a decision snapshot that preserves uncertainty.
 
-The tested path is Claude/Cowork-style skills. The underlying `SKILL.md` files can also be adapted as reusable prompts for ChatGPT, Gemini, Codex-style agents, or internal AI assistants. No connector is required for pasted-context mode.
+It is not a deck generator, project-management framework, or heavy artifact factory.
 
-Start with `reduce-to-facts` for dense or ambiguous source, then pass the ledger to `clear-ask`, `decision-brief`, `status-update`, or `follow-up-draft`.
+The skills provide reusable instruction contracts and examples. They help an assistant preserve uncertainty, identify asks, surface owners, draft replies, and avoid unsafe action. They do not guarantee structured output unless the host assistant follows the requested format.
 
-## Current validation boundary
+| Input | State extracted | Output |
+| --- | --- | --- |
+| Dense context, long thread, memo, policy doc, vendor writeup, or transcript | Facts you can rely on, plus opinions, unsupported claims, contradictions, open questions, and implications | `reduce-to-facts` fact ledger you can pass downstream |
+| Slack thread, email chain, meeting transcript, doc comment, or Jira/Confluence discussion | What changed, clean ask, decision, owner, deadline, blocker, source confidence, and tone risk | Reply draft, follow-up, status update, decision snapshot, or action list |
+
+Optional schemas and examples give you a stricter handoff layer when you want machine-checked output.
+
+## What you can do
+
+| Need | Ask | Skill |
+| --- | --- | --- |
+| Reduce dense context safely | What can I safely rely on? | `reduce-to-facts` |
+| Catch up on a thread | What did I miss? | `brief-me` |
+| Clarify what someone is asking | What are they actually asking? | `clear-ask` |
+| Extract actions and open loops | What are the actions and open loops? | `meeting-to-actions` |
+| Prepare a decision snapshot | What decision is needed? | `decision-brief` |
+| Draft the next reply | What should I say back? | `follow-up-draft` |
+| Brief others on what changed | What should others know? | `status-update` |
+
+## Operating modes
+
+Choose the mode that gives you the right control.
+
+| Mode | You control |
+| --- | --- |
+| Pasted-only mode | Use only text you pasted |
+| Connected-context mode | Read approved tools like Gmail, Slack, Calendar, Docs, Jira, or Confluence |
+| Draft-only mode | Produce messages, updates, or follow-ups without sending or publishing |
+| Action mode | Mutate systems only when you explicitly ask |
+
+## Compatibility and control matrix
+
+| Mode | What it uses | Default behavior | Validation confidence | Caveat |
+| --- | --- | --- | --- | --- |
+| Pasted-context mode | Pasted notes, transcripts, docs, or thread text | Read and draft from pasted source only | High | This is the primary validated usage pattern. |
+| Claude/Cowork-style skills | Local `SKILL.md` files plus pasted context | Read and draft through the hosted skill pack | Medium | Validated mainly when used with pasted context; host UI behavior is outside this repo. |
+| Codex install path | `install.sh` or copied skill folders | Places the same skill pack in Codex-friendly paths | Medium | Install layout is validated; host features are not. |
+| Other assistants / manual prompt reuse | Copied `SKILL.md` text or pasted prompts | Same output contract when the host follows it | Low | Compatibility target, not a tested integration. |
+| Connected-context mode | Approved tools the user explicitly authorizes | Reads only approved tools | Low | This repo does not grant connector access. |
+| Action mode | Host tool invocation plus user approval | Mutates systems only when explicitly asked | Low | This repo provides guardrails, not mutation rights. |
+
+## Validation boundary
 
 This is the pasted-context validation boundary for the repo.
 
@@ -89,34 +133,7 @@ Connector and action-mode behavior depends on the host assistant and the tools t
 
 For why MCP stays out of scope for now, see [integration roadmap](docs/integration-roadmap.md).
 
-## What this is / is not
-
-This repo is a lightweight skill pack for pasted workplace context.
-
-It is not a deterministic workflow engine, ticketing system, MCP server, or project-management backend.
-
-The skills provide reusable instruction contracts and examples. They help an assistant preserve uncertainty, identify asks, surface owners, draft replies, and avoid unsafe action. They do not guarantee structured output unless the host assistant follows the requested format.
-
-For machine-validated workflows, use the optional schemas and examples as a stricter handoff layer.
-
-## Meeting without a meeting
-
-Slack threads, email chains, doc comments, tickets, and transcripts can all carry the same source state as a live meeting. Treat them as async collaboration: extract facts first, then move to the next clear action.
-
-## Use these skills
-
-No coding is required.
-
-Each skill lives in `skills/` as a folder with a `SKILL.md` file.
-
-If your AI tool can read a local skills directory, point it at `skills/`. If it supports one of the Claude/Codex paths above, use the installer. Otherwise copy the folders into the directory it expects, then paste context and ask for a skill by name. For example:
-
-```text
-Use brief-me on this thread and tell me what needs my response.
-```
-
-These skills read and draft by default. They do not send, publish, create events, or update systems unless you explicitly ask.
-Start with `reduce-to-facts` when the source is too long or ambiguous to act on safely, then move to `clear-ask`, `decision-brief`, `status-update`, or `follow-up-draft`.
+Shared guidance for mixed-source inputs lives in [source-packet.md](references/source-packet.md).
 
 ## Privacy and control
 
@@ -125,60 +142,6 @@ Start with `reduce-to-facts` when the source is too long or ambiguous to act on 
 - draft-only mode does not send or publish
 - action mode mutates systems only when explicitly asked
 - Tone safety: helps avoid accidental escalation, fake certainty, overcommitment, and misreading stakeholder sensitivity
-
-## What This Is
-
-This repo is for the work before the work:
-
-- reduce dense context to safe facts
-- understand what people said
-- identify what changed
-- separate facts from assumptions
-- clarify the ask
-- preserve open loops
-- draft the next context-aware response
-
-## What This Is Not
-
-This is not a deck generator, project-management framework, or heavy artifact factory.
-
-## How it works
-
-| Input | State extracted | Output |
-| --- | --- | --- |
-| Dense context, long thread, memo, policy doc, vendor writeup, or transcript | Facts you can rely on, plus opinions, unsupported claims, contradictions, open questions, and implications | `reduce-to-facts` fact ledger you can pass downstream |
-| Slack thread, email chain, meeting transcript, doc comment, or Jira/Confluence discussion | What changed, clean ask, decision, owner, deadline, blocker, source confidence, and tone risk | Reply draft, follow-up, status update, decision snapshot, or action list |
-
-## Workflows
-
-| Workflow | User question | Skill |
-| --- | --- | --- |
-| Reduce dense context | What can we safely rely on? | `reduce-to-facts` |
-| Catch up | What did I miss? | `brief-me` |
-| Clarify | What are they actually asking? | `clear-ask` |
-| Extract actions | What are the actions and open loops? | `meeting-to-actions` |
-| Decide | What decision is needed? | `decision-brief` |
-| Respond | What should I say back? | `follow-up-draft` |
-| Broadcast | What should others know? | `status-update` |
-
-## Operating Modes
-
-Choose the mode that gives you the right control.
-
-| Mode | You control |
-| --- | --- |
-| Pasted-only mode | Use only text you pasted |
-| Connected-context mode | Read approved tools like Gmail, Slack, Calendar, Docs, Jira, or Confluence |
-| Draft-only mode | Produce messages, updates, or follow-ups without sending or publishing |
-| Action mode | Mutate systems only when you explicitly ask |
-
-## Supported Context
-
-Use pasted notes, Zoom transcripts, Slack, Gmail, Calendar, Atlassian, and Hex or other data outputs as inputs.
-
-By default, these skills read and draft. They do not send messages, create events, update tickets, or publish outputs unless you explicitly ask.
-
-Shared guidance for mixed-source inputs lives in [source-packet.md](references/source-packet.md).
 
 ## Examples
 
@@ -194,18 +157,7 @@ Shared guidance for mixed-source inputs lives in [source-packet.md](references/s
 
 See [examples/README.md](examples/README.md) for a quick index of what each example demonstrates.
 
-## Keep It Practical
-
-Every skill is designed to produce something you can send, decide from, or act on within 5 minutes.
-
-Helpful supporting files:
-
-- [clarity-check.md](checklists/clarity-check.md)
-- [source-packet.md](references/source-packet.md)
-- [CONVERSATION_STATE.md](templates/CONVERSATION_STATE.md)
-- [ACTIONS.md](templates/ACTIONS.md)
-- [DECISIONS.md](templates/DECISIONS.md)
-- [UPDATE.md](templates/UPDATE.md)
+Helpful supporting files: [clarity-check.md](checklists/clarity-check.md), [source-packet.md](references/source-packet.md), [CONVERSATION_STATE.md](templates/CONVERSATION_STATE.md), [ACTIONS.md](templates/ACTIONS.md), [DECISIONS.md](templates/DECISIONS.md), and [UPDATE.md](templates/UPDATE.md).
 
 ## How This Repo Was Built
 
