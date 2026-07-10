@@ -1,7 +1,7 @@
 {
   "source_scope": {
     "sources_reviewed": [
-      "vendor-risk Slack thread lines 1-10"
+      "reduce-to-facts-vendor-risk.source.txt lines 1-10"
     ],
     "known_limitations": [
       "no DPA text",
