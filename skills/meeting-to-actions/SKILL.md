@@ -26,6 +26,7 @@ Turn meeting content into a compact action record without making the user reread
 - Notes
 - Agenda
 - Related ticket or doc context when useful
+- A `reduce-to-facts` ledger or conversation-state record
 
 ## Guardrails
 
@@ -36,9 +37,17 @@ Turn meeting content into a compact action record without making the user reread
 - Surface missing owners, due dates, and unclear blockers.
 - Do not dump raw transcript content by default.
 
-## Shared Output Contract
+## Portable Output Contract
 
-See [shared-output-contract.md](../../references/shared-output-contract.md) for the common cross-skill output rules.
+- Use only the useful subset of source-backed facts, assumptions, source gaps,
+  stakeholder sensitivities, potential misreads, and the suggested next action.
+- Use the smallest useful output.
+- Label assumptions and preserve source gaps, source anchors, and confidence labels.
+- When consuming upstream state, do not promote an assumption, inference, open
+  question, proposed action, or stakeholder position into a fact, decision,
+  commitment, owner, or deadline without new source support.
+- Keep unresolved approvals, owners, timing, and blockers explicit in the action record.
+- Do not send, publish, update tickets, create events, or mutate systems unless explicitly asked.
 
 ## Output
 
@@ -50,7 +59,8 @@ See [shared-output-contract.md](../../references/shared-output-contract.md) for 
 - Tickets/docs to update if applicable
 - Source gaps
 
-If the user wants a reusable record, map the result into [CONVERSATION_STATE.md](../../templates/CONVERSATION_STATE.md).
+If the user wants a reusable record, use the optional `CONVERSATION_STATE.md`
+template from this pack when it is available.
 
 ## Success Standard
 
