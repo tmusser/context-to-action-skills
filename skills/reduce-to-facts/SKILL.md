@@ -35,7 +35,17 @@ For short inputs, include:
 - Action-relevant implications
 - Suggested next skill
 
-See [shared-output-contract.md](../../references/shared-output-contract.md) for the common cross-skill rules about assumptions, source gaps, stakeholder sensitivities, and mutation boundaries.
+## Portable Output Contract
+
+- Use only the useful subset of source-backed facts, assumptions, source gaps,
+  stakeholder sensitivities, potential misreads, and the suggested next action.
+- Use the smallest useful output.
+- Label assumptions and preserve source gaps, source anchors, and confidence labels.
+- Do not promote an assumption, inference, open question, proposed action, or
+  stakeholder position into a fact, decision, commitment, owner, or deadline
+  without new source support.
+- Keep unresolved approvals, owners, timing, and blockers explicit.
+- Do not send, publish, update tickets, create events, or mutate systems unless explicitly asked.
 
 ## Source Mode
 
@@ -240,10 +250,6 @@ Recommend one downstream skill:
 - `brief-me` if the user needs a fast catch-up.
 
 If a named downstream skill is unavailable in the host assistant, describe the next step in plain language instead of pretending the skill can be invoked.
-
-## Shared Output Contract
-
-See [shared-output-contract.md](../../references/shared-output-contract.md) for the common cross-skill output rules.
 
 ## Success Standard
 

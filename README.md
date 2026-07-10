@@ -27,6 +27,8 @@ It is not a deterministic workflow engine, ticketing system, MCP server, or proj
 
 The skills provide reusable instruction contracts and examples. They help an assistant preserve uncertainty, identify asks, surface owners, draft replies, and avoid unsafe action.
 
+Each installed `SKILL.md` is self-contained: the critical uncertainty, handoff, and mutation rules travel with the skill folder rather than depending on repository-only links.
+
 Slack threads, email chains, doc comments, tickets, and transcripts can all carry the same source state as a live meeting. Treat them as async collaboration: extract facts first, then move to the next clear action.
 
 For machine-validated workflows, use the optional schemas and examples as a stricter handoff layer.
@@ -35,10 +37,24 @@ For machine-validated workflows, use the optional schemas and examples as a stri
 
 No coding is required.
 
+Clone the repo:
+
 ```sh
 git clone https://github.com/tmusser/context-to-action-skills.git
 cd context-to-action-skills
+```
+
+Then choose one install target.
+
+Claude Code:
+
+```sh
 ./install.sh --claude-user --only reduce-to-facts,clear-ask,decision-brief,follow-up-draft
+```
+
+Codex:
+
+```sh
 ./install.sh --codex-user --only reduce-to-facts,clear-ask,decision-brief,follow-up-draft
 ```
 
@@ -115,9 +131,9 @@ Choose the mode that gives you the right control.
 | Mode | What it uses | Default behavior | Validation confidence | Caveat |
 | --- | --- | --- | --- | --- |
 | Pasted-context mode | Pasted notes, transcripts, docs, or thread text | Read and draft from pasted source only | High | This is the primary validated usage pattern. |
-| Claude/Cowork-style skills | Local `SKILL.md` files plus pasted context | Read and draft through the hosted skill pack | Medium | Validated mainly when used with pasted context; host UI behavior is outside this repo. |
-| Codex install path | `install.sh` or copied skill folders | Places the same skill pack in Codex-friendly paths | Medium | Install layout is validated; host features are not. |
-| Other assistants / manual prompt reuse | Copied `SKILL.md` text or pasted prompts | Same output contract when the host follows it | Low | Compatibility target, not a tested integration. |
+| Claude/Cowork-style skills | Local self-contained `SKILL.md` files plus pasted context | Read and draft through the hosted skill pack | Medium | Validated mainly when used with pasted context; host UI behavior is outside this repo. |
+| Codex install path | `install.sh` or copied skill folders | Places the same self-contained skill pack in Codex-friendly paths | Medium | Install layout is validated; host features are not. |
+| Other assistants / manual prompt reuse | Copied `SKILL.md` text or skill folders | Same output contract when the host follows it | Low | Compatibility target, not a tested integration. |
 | Connected-context mode | Approved tools the user explicitly authorizes | Reads only approved tools | Low | This repo does not grant connector access. |
 | Action mode | Host tool invocation plus user approval | Mutates systems only when explicitly asked | Low | This repo provides guardrails, not mutation rights. |
 
@@ -133,7 +149,7 @@ Connector and action-mode behavior depends on the host assistant and the tools t
 
 For why MCP stays out of scope for now, see [integration roadmap](docs/integration-roadmap.md).
 
-Shared guidance for mixed-source inputs lives in [source-packet.md](references/source-packet.md).
+Shared authoring guidance for mixed-source inputs lives in [source-packet.md](references/source-packet.md). The installed skills carry their critical output contract inline.
 
 ## Privacy and control
 

@@ -21,6 +21,7 @@ Convert a fuzzy request, thread, or note into a direct ask someone can understan
 - Meeting notes
 - Project context
 - Pasted workplace context
+- A `reduce-to-facts` ledger or conversation-state record
 
 ## Guardrails
 
@@ -30,9 +31,17 @@ Convert a fuzzy request, thread, or note into a direct ask someone can understan
 - Flag missing owner, timing, or decision context.
 - Prefer the smallest useful ask.
 
-## Shared Output Contract
+## Portable Output Contract
 
-See [shared-output-contract.md](../../references/shared-output-contract.md) for the common cross-skill output rules.
+- Use only the useful subset of source-backed facts, assumptions, source gaps,
+  stakeholder sensitivities, potential misreads, and the suggested next action.
+- Use the smallest useful output.
+- Label assumptions and preserve source gaps, source anchors, and confidence labels.
+- When consuming upstream state, do not promote an assumption, inference, open
+  question, proposed action, or stakeholder position into a fact, decision,
+  commitment, owner, or deadline without new source support.
+- Keep unresolved approvals, owners, timing, and blockers explicit in the ask and draft.
+- Do not send, publish, update tickets, create events, or mutate systems unless explicitly asked.
 
 ## Output
 
