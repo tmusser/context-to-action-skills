@@ -52,6 +52,18 @@ TEMPLATE_FILES = [
 ]
 
 
+PORTABLE_CONTRACT_PHRASES = [
+    "portable output contract",
+    "use the smallest useful output",
+    "label assumptions",
+    "preserve source gaps",
+    "source anchors",
+    "confidence labels",
+    "without new source support",
+    "do not send, publish, update tickets, create events, or mutate systems unless explicitly asked",
+]
+
+
 def fail(message: str) -> None:
     print(f"FAIL: {message}", file=sys.stderr)
     raise SystemExit(1)
@@ -99,6 +111,45 @@ def line_has_allowed_former_name(path: Path, line: str) -> bool:
     return "Formerly ai-business-skills" in normalized or "Formerly ai-business-skills." in normalized
 
 
+def resolve_link(source_file: Path, link: str) -> Path | None:
+    target = link.strip()
+    if not target:
+        return None
+    if target.startswith(("http://", "https://", "mailto:", "#")):
+        return None
+    if target.startswith("<") and target.endswith(">"):
+        target = target[1:-1]
+    target = target.split("#", 1)[0].split("?", 1)[0]
+    if not target:
+        return None
+    path = Path(target)
+    if path.is_absolute():
+        return path
+    return (source_file.parent / path).resolve()
+
+
+def validate_skill_portability(skill_file: Path, skill_dir: Path, text: str) -> None:
+    lowered = text.lower()
+    for phrase in PORTABLE_CONTRACT_PHRASES:
+        if phrase not in lowered:
+            fail(f"{skill_file.relative_to(ROOT)} is missing portable contract phrase: {phrase}")
+
+    link_pattern = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
+    skill_root = skill_dir.resolve()
+    for match in link_pattern.finditer(text):
+        link = match.group(1)
+        resolved = resolve_link(skill_file, link)
+        if resolved is None:
+            continue
+        if not resolved.is_relative_to(skill_root):
+            fail(
+                f"{skill_file.relative_to(ROOT)} has a non-portable relative link: {link}. "
+                "Installed skill folders must be self-contained."
+            )
+        if not resolved.exists():
+            fail(f"{skill_file.relative_to(ROOT)} has a broken local link: {link}")
+
+
 def validate_repo_identity() -> None:
     if not README.exists():
         fail("README.md is missing")
@@ -125,6 +176,9 @@ def validate_repo_identity() -> None:
         "use the smallest useful output",
         "label assumptions",
         "preserve source gaps",
+        "preserve source anchors and confidence labels",
+        "without new source support",
+        "keep unresolved approvals, owners, timing, and blockers explicit",
         "do not send, publish, update tickets, create events, or mutate systems unless explicitly asked",
     ]
     for phrase in shared_required:
@@ -152,8 +206,7 @@ def validate_repo_identity() -> None:
             fail(f"{skill_file.relative_to(ROOT)} frontmatter name {name!r} does not match folder {skill_dir.name!r}")
         if "Read before write" not in text:
             fail(f"{skill_file.relative_to(ROOT)} is missing read-before-write guardrail")
-        if "shared-output-contract.md" not in text:
-            fail(f"{skill_file.relative_to(ROOT)} does not reference shared-output-contract.md")
+        validate_skill_portability(skill_file, skill_dir, text)
 
     reduce_to_facts = SKILLS_DIR / "reduce-to-facts" / "SKILL.md"
     reduce_text = read_text(reduce_to_facts)
@@ -205,23 +258,6 @@ def validate_readme() -> None:
             fail(f"missing template file: {template.relative_to(ROOT)}")
         if schema_note not in read_text(template):
             fail(f"{template.relative_to(ROOT)} is missing the schema mapping note")
-
-
-def resolve_link(source_file: Path, link: str) -> Path | None:
-    target = link.strip()
-    if not target:
-        return None
-    if target.startswith(("http://", "https://", "mailto:", "#")):
-        return None
-    if target.startswith("<") and target.endswith(">"):
-        target = target[1:-1]
-    target = target.split("#", 1)[0].split("?", 1)[0]
-    if not target:
-        return None
-    path = Path(target)
-    if path.is_absolute():
-        return path
-    return (source_file.parent / path).resolve()
 
 
 def validate_markdown_links() -> None:
