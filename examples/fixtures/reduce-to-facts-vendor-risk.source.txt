@@ -1,0 +1,10 @@
+1 Alex: Product wants the vendor integration live Friday if legal clears it.
+2 Priya: Legal still has not approved the updated DPA.
+3 Jordan: Support can handle the launch, but only if we have a rollback plan.
+4 Mina: Security flagged missing SSO logs and wants a short risk note.
+5 Sam: Implementation risk looks low based on the pilot.
+6 Priya: "Looks low" is not evidence; we still need the review note.
+7 Jordan: The on-call team is stretched next week.
+8 Alex: Exec updates go out at 3pm today.
+9 Sam: Who owns the go/no-go call?
+10 Mina: No final owner is listed in the thread.
