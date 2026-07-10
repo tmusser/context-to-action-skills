@@ -34,6 +34,9 @@ jobs:
           HOME="$tmp_home" ./install.sh --claude-user --only reduce-to-facts,clear-ask
           test -f "$tmp_home/.claude/skills/reduce-to-facts/SKILL.md"
           test -f "$tmp_home/.claude/skills/clear-ask/SKILL.md"
+          grep -q "Portable Output Contract" "$tmp_home/.claude/skills/reduce-to-facts/SKILL.md"
+          grep -q "without new source support" "$tmp_home/.claude/skills/clear-ask/SKILL.md"
+          ! grep -R -E '\.\./\.\./(references|templates)' "$tmp_home/.claude/skills"
           HOME="$tmp_home" ./install.sh --claude-user --only reduce-to-facts,clear-ask
           HOME="$tmp_home" ./install.sh --claude-user --only reduce-to-facts,clear-ask --dry-run
 
@@ -46,6 +49,7 @@ jobs:
           ./install.sh --codex-project "$tmp_project" --only status-update --include-templates
           test -f "$tmp_project/.agents/skills/status-update/SKILL.md"
           test -f "$tmp_project/docs/context-to-action-skills/templates/ACTIONS.md"
+          grep -q "Portable Output Contract" "$tmp_project/.agents/skills/status-update/SKILL.md"
 
           tmp_home="$(mktemp -d)"
           HOME="$tmp_home" ./install.sh --claude-user --only reduce-to-facts
