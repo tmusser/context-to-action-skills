@@ -14,6 +14,19 @@ These examples show how messy workplace context becomes facts, asks, decisions, 
 | [decision-with-data.md](decision-with-data.md) | `decision-brief` | Data + notes → decision snapshot | Frames a decision with data without overstating certainty or readiness. |
 | [async-slack-clear-ask.md](async-slack-clear-ask.md) | `clear-ask` | Slack thread → async meeting → ask | Treats a Slack thread like an async meeting and names the real decision gap. |
 
+## Grounded JSON Fixtures
+
+Machine-validated fixtures live under `examples/fixtures/` as one-to-one pairs:
+
+```text
+<name>.source.txt
+<name>.expected.json
+```
+
+Source files use explicit numbered lines. Every expected record must point to a
+valid `Line N` or `Lines N-M` anchor in its paired source, and anchored text must
+share substantive language with those lines.
+
 ## Strong Examples Should Show
 
 - raw context

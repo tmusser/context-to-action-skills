@@ -1,0 +1,5 @@
+1 Alex: Can we still send the customer note today?
+2 Sam: I'd rather not wait; support can catch up after.
+3 Priya: Support needs the enterprise wording before anything goes out.
+4 Jordan: Legal has not approved the banner copy yet.
+5 Alex: The send queue closes at 3pm. Who owns the call?
