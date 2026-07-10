@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -17,6 +18,54 @@ FIXTURE_SCHEMAS = {
 }
 
 SUPPORTED_TYPES = {"object", "array", "string", "number", "integer", "boolean", "null"}
+SOURCE_LINE_RE = re.compile(r"^(\d+)\s+(.+)$")
+SOURCE_ANCHOR_RE = re.compile(r"^Lines? (\d+)(?:-(\d+))?$")
+RECORD_FIELDS = (
+    "facts",
+    "assumptions",
+    "open_questions",
+    "decisions",
+    "actions",
+    "blockers",
+    "risks",
+    "unsupported_claims",
+)
+STOP_WORDS = {
+    "a",
+    "an",
+    "and",
+    "are",
+    "as",
+    "at",
+    "be",
+    "both",
+    "but",
+    "by",
+    "can",
+    "could",
+    "for",
+    "from",
+    "has",
+    "have",
+    "if",
+    "in",
+    "into",
+    "is",
+    "it",
+    "no",
+    "not",
+    "of",
+    "on",
+    "or",
+    "should",
+    "the",
+    "their",
+    "this",
+    "to",
+    "we",
+    "with",
+    "who",
+}
 
 
 def fail(message: str) -> None:
@@ -207,11 +256,115 @@ def validate_schema_file(path: Path) -> dict[str, object]:
     return schema
 
 
-def validate_fixture(path: Path, schema: dict[str, object]) -> None:
-    fixture = load_json(path)
-    if not isinstance(fixture, dict):
-        fail(f"{path.relative_to(ROOT)}: fixture root must be an object")
-    validate_instance(fixture, schema, path.relative_to(ROOT).as_posix())
+def source_path_for_fixture(path: Path) -> Path:
+    suffix = ".expected.json"
+    if not path.name.endswith(suffix):
+        fail(f"unexpected fixture name: {path.relative_to(ROOT)}")
+    stem = path.name[: -len(suffix)]
+    return path.with_name(f"{stem}.source.txt")
+
+
+def load_source_lines(path: Path) -> dict[int, str]:
+    try:
+        raw_lines = path.read_text(encoding="utf-8").splitlines()
+    except FileNotFoundError:
+        fail(f"missing paired source file: {path.relative_to(ROOT)}")
+
+    source_lines: dict[int, str] = {}
+    expected_number = 1
+    for raw_line in raw_lines:
+        if not raw_line.strip():
+            continue
+        match = SOURCE_LINE_RE.fullmatch(raw_line)
+        if match is None:
+            fail(
+                f"{path.relative_to(ROOT)}: source lines must use '<number> <text>': {raw_line!r}"
+            )
+        number = int(match.group(1))
+        text = match.group(2).strip()
+        if number != expected_number:
+            fail(
+                f"{path.relative_to(ROOT)}: expected source line {expected_number}, found {number}"
+            )
+        if not text:
+            fail(f"{path.relative_to(ROOT)}: source line {number} is empty")
+        source_lines[number] = text
+        expected_number += 1
+
+    if not source_lines:
+        fail(f"{path.relative_to(ROOT)}: paired source file is empty")
+    return source_lines
+
+
+def resolve_source_anchor(
+    anchor: str,
+    source_lines: dict[int, str],
+    fixture_path: Path,
+    record_path: str,
+) -> str:
+    match = SOURCE_ANCHOR_RE.fullmatch(anchor)
+    if match is None:
+        fail(
+            f"{fixture_path.relative_to(ROOT)}:{record_path}: source_anchor must use "
+            f"'Line N' or 'Lines N-M', got {anchor!r}"
+        )
+
+    start = int(match.group(1))
+    end = int(match.group(2) or start)
+    if end < start:
+        fail(
+            f"{fixture_path.relative_to(ROOT)}:{record_path}: source anchor range is reversed: {anchor}"
+        )
+
+    missing = [number for number in range(start, end + 1) if number not in source_lines]
+    if missing:
+        fail(
+            f"{fixture_path.relative_to(ROOT)}:{record_path}: source anchor {anchor!r} "
+            f"references missing line(s): {', '.join(str(number) for number in missing)}"
+        )
+    return " ".join(source_lines[number] for number in range(start, end + 1))
+
+
+def substantive_tokens(text: str) -> set[str]:
+    tokens = set(re.findall(r"[a-z0-9]+", text.lower()))
+    return {token for token in tokens if len(token) >= 3 and token not in STOP_WORDS}
+
+
+def validate_fixture_grounding(
+    fixture_path: Path,
+    fixture: dict[str, object],
+    source_lines: dict[int, str],
+) -> None:
+    record_count = 0
+    for field in RECORD_FIELDS:
+        records = fixture.get(field, [])
+        if not isinstance(records, list):
+            fail(f"{fixture_path.relative_to(ROOT)}: {field} must be a list when present")
+        for index, record in enumerate(records):
+            record_path = f"{field}[{index}]"
+            if not isinstance(record, dict):
+                fail(f"{fixture_path.relative_to(ROOT)}:{record_path}: record must be an object")
+            text = record.get("text")
+            anchor = record.get("source_anchor")
+            if not isinstance(text, str) or not text.strip():
+                fail(f"{fixture_path.relative_to(ROOT)}:{record_path}: missing record text")
+            if not isinstance(anchor, str) or not anchor.strip():
+                fail(f"{fixture_path.relative_to(ROOT)}:{record_path}: missing source_anchor")
+
+            anchored_source = resolve_source_anchor(
+                anchor.strip(), source_lines, fixture_path, record_path
+            )
+            record_tokens = substantive_tokens(text)
+            source_tokens = substantive_tokens(anchored_source)
+            if record_tokens and not record_tokens.intersection(source_tokens):
+                fail(
+                    f"{fixture_path.relative_to(ROOT)}:{record_path}: text has no substantive "
+                    f"overlap with {anchor!r} in the paired source"
+                )
+            record_count += 1
+
+    if record_count == 0:
+        fail(f"{fixture_path.relative_to(ROOT)}: fixture has no anchored records")
 
 
 def validate_fixture_semantics(path: Path, fixture: dict[str, object]) -> None:
@@ -244,10 +397,36 @@ def validate_fixture_semantics(path: Path, fixture: dict[str, object]) -> None:
             fail(f"{path.relative_to(ROOT)}: follow-up fixture must detect the owner gap")
         if not isinstance(actions, list) or not actions:
             fail(f"{path.relative_to(ROOT)}: follow-up fixture must include a next action")
+        for index, action in enumerate(actions):
+            if not isinstance(action, dict) or action.get("status") != "proposed":
+                fail(
+                    f"{path.relative_to(ROOT)}: actions[{index}] must remain explicitly proposed"
+                )
         if decisions:
             fail(f"{path.relative_to(ROOT)}: follow-up fixture must not invent a decision")
     else:
         fail(f"no semantic checks configured for {path.relative_to(ROOT)}")
+
+
+def validate_fixture_pairs(fixture_files: list[Path]) -> None:
+    expected_stems = {
+        path.name[: -len(".expected.json")]
+        for path in fixture_files
+        if path.name.endswith(".expected.json")
+    }
+    source_files = sorted(FIXTURES_DIR.glob("*.source.txt"))
+    source_stems = {
+        path.name[: -len(".source.txt")]
+        for path in source_files
+        if path.name.endswith(".source.txt")
+    }
+
+    missing_sources = sorted(expected_stems - source_stems)
+    orphan_sources = sorted(source_stems - expected_stems)
+    if missing_sources:
+        fail(f"missing paired source files for: {', '.join(missing_sources)}")
+    if orphan_sources:
+        fail(f"source files without expected JSON fixtures: {', '.join(orphan_sources)}")
 
 
 def main() -> None:
@@ -267,6 +446,7 @@ def main() -> None:
     fixture_files = sorted(FIXTURES_DIR.glob("*.expected.json"))
     if not fixture_files:
         fail("no fixture files found")
+    validate_fixture_pairs(fixture_files)
 
     seen_fixtures = set()
     for fixture_path in fixture_files:
@@ -280,6 +460,9 @@ def main() -> None:
         if not isinstance(fixture, dict):
             fail(f"{fixture_path.relative_to(ROOT)}: fixture root must be an object")
         validate_instance(fixture, schema, fixture_path.relative_to(ROOT).as_posix())
+        source_path = source_path_for_fixture(fixture_path)
+        source_lines = load_source_lines(source_path)
+        validate_fixture_grounding(fixture_path, fixture, source_lines)
         validate_fixture_semantics(fixture_path, fixture)
         seen_fixtures.add(fixture_path.name)
 
