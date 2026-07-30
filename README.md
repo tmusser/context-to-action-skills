@@ -44,6 +44,12 @@ git clone https://github.com/tmusser/context-to-action-skills.git
 cd context-to-action-skills
 ```
 
+See the available skill names:
+
+```sh
+./install.sh --list
+```
+
 Then choose one install target.
 
 Claude Code:
