@@ -22,6 +22,11 @@ jobs:
           python -m py_compile scripts/install_skills.py
           bash install.sh --help
 
+          list_output="$(bash install.sh --list)"
+          printf '%s\n' "$list_output" | grep -q '^Available skills:$'
+          printf '%s\n' "$list_output" | grep -q '^- reduce-to-facts$'
+          printf '%s\n' "$list_output" | grep -q '^- status-update$'
+
           tmp_home="$(mktemp -d)"
           HOME="$tmp_home" ./install.sh --claude-user --dry-run
           test ! -e "$tmp_home/.claude/skills"
