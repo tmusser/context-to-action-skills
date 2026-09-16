@@ -36,11 +36,14 @@ jobs:
           test ! -e "$tmp_home/.agents/skills"
 
           tmp_home="$(mktemp -d)"
-          HOME="$tmp_home" ./install.sh --claude-user --only reduce-to-facts,clear-ask
+          HOME="$tmp_home" ./install.sh --claude-user --only reduce-to-facts,clear-ask,brief-me
           test -f "$tmp_home/.claude/skills/reduce-to-facts/SKILL.md"
           test -f "$tmp_home/.claude/skills/clear-ask/SKILL.md"
+          test -f "$tmp_home/.claude/skills/brief-me/SKILL.md"
+          test -f "$tmp_home/.claude/skills/brief-me/OPERATOR_PROFILE.md"
           grep -q "Portable Output Contract" "$tmp_home/.claude/skills/reduce-to-facts/SKILL.md"
           grep -q "without new source support" "$tmp_home/.claude/skills/clear-ask/SKILL.md"
+          grep -q "Optional Operator Setup" "$tmp_home/.claude/skills/brief-me/SKILL.md"
           ! grep -R -E '\.\./\.\./(references|templates)' "$tmp_home/.claude/skills"
           HOME="$tmp_home" ./install.sh --claude-user --only reduce-to-facts,clear-ask
           HOME="$tmp_home" ./install.sh --claude-user --only reduce-to-facts,clear-ask --dry-run
