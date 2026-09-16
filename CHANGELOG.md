@@ -11,6 +11,7 @@
 - Validation that rejects skill links escaping the installed skill folder.
 - Canonical numbered source files paired one-to-one with every expected JSON fixture.
 - Fixture validation for source-pair completeness, anchor resolution, and substantive source overlap.
+- An optional operator-profile setup flow bundled with `brief-me` for tailoring priority, compression, ordering, terminology, and response behavior without weakening grounding or mutation guardrails.
 
 ### Changed
 
