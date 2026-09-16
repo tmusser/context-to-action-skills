@@ -28,6 +28,22 @@ Turn messy connected or pasted context into a short conversation-state brief the
 - Any combination of the above
 - A `reduce-to-facts` ledger or conversation-state record
 
+## Optional Operator Setup
+
+`brief-me` works without setup. When the user wants recurring briefs tailored to
+how they operate, use the bundled [OPERATOR_PROFILE.md](OPERATOR_PROFILE.md)
+flow.
+
+An operator profile may tune prioritization, compression, section order,
+terminology, meeting-prep behavior, and when suggested replies appear. It must
+not change source truth, confidence, unresolved gaps, or authorization
+boundaries.
+
+- Opt in; never require setup before producing a useful brief.
+- Do not infer preferences from connected data when the user has not stated them.
+- Treat the user's current request as higher priority than profile defaults.
+- If no profile is available, use the standard output contract below.
+
 ## Guardrails
 
 - Read before write.
@@ -52,6 +68,8 @@ Turn messy connected or pasted context into a short conversation-state brief the
 
 ## Output
 
+Use the smallest useful subset of:
+
 - Conversation state
 - What changed
 - What needs response
@@ -68,3 +86,5 @@ template from this pack when it is available.
 ## Success Standard
 
 The user should be able to scan the brief and know what matters within 5 minutes.
+With an operator profile, the brief should feel better prioritized for that user
+without becoming less grounded or less portable.
